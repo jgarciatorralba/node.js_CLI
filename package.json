@@ -11,9 +11,12 @@
     "url": "https://code.assemblerschool.com/jorge-garcia/node.js_CLI.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Berón Gamboa Gavilanes and Jorge García Torralba",
   "license": "ISC",
   "devDependencies": {
     "dotenv": "^8.2.0"
+  },
+  "dependencies": {
+    "commander": "^6.1.0"
   }
 }
