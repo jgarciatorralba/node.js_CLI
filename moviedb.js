@@ -78,6 +78,7 @@ program
                   `Department: ${chalk.magenta(person.known_for_department)}`
                 );
               }
+              // Movies data
               let movies = person.known_for;
               let noMoviesWithTitle = true;
               movies.forEach((movie) => {
