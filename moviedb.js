@@ -84,13 +84,6 @@ program
               movies.forEach((movie) => {
                 if (movie.title !== undefined) {
                   noMoviesWithTitle = false;
-                  console.info(chalk.white("\nAppearing in movies:"));
-                  console.info(chalk.white("\n\tMovie:"));
-                  console.info(chalk.white("\tID: " + movie.id));
-                  console.info(
-                    chalk.white("\tRelease date: " + movie.release_date)
-                  );
-                  console.info(chalk.white("\tTitle: " + movie.title + "\n"));
                 }
               });
               if (noMoviesWithTitle) {
@@ -101,6 +94,18 @@ program
                     ) +
                     "\n"
                 );
+              } else {
+                console.info(chalk.white("\nAppearing in movies:"));
+                movies.forEach((movie) => {
+                  if (movie.title !== undefined) {
+                    console.info(chalk.white("\n\tMovie:"));
+                    console.info(chalk.white("\tID: " + movie.id));
+                    console.info(
+                      chalk.white("\tRelease date: " + movie.release_date)
+                    );
+                    console.info(chalk.white("\tTitle: " + movie.title + "\n"));
+                  }
+                });
               }
             });
             // Ending spinner
