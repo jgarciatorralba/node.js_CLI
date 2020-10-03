@@ -1,3 +1,6 @@
+# Ignored files
 .env
-node_modules
 .prettierignore
+
+# Ignored folders
+node_modules
