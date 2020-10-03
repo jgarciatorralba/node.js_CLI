@@ -23,8 +23,9 @@ module.exports = function addGetPersonsCommand(program) {
       let apiKey = process.env.API_KEY;
       // Base URL
       let url = "https://api.themoviedb.org/3/person/";
-      // let url = "https://api.themovied"; // Wrong url to force error
+      // Chain to url the search for popular persons
       if (command.popular) url += "popular?";
+      // Chain to url the page number and the API key
       url += "page=" + page + "&" + "api_key=" + apiKey;
       // Start spinner
       console.info(chalk.white("\n"));
@@ -38,11 +39,11 @@ module.exports = function addGetPersonsCommand(program) {
       https
         .get(url, (resp) => {
           let data = "";
-          // A chunk of data has been recieved.
+          // A chunk of data has been recieved
           resp.on("data", (chunk) => {
             data += chunk;
           });
-          // The whole response has been received. Print out the result.
+          // The whole response has been received. Print out the result
           resp.on("end", () => {
             let parsedData = JSON.parse(data);
             if (parsedData.success !== undefined && !parsedData.success) {
@@ -113,7 +114,9 @@ module.exports = function addGetPersonsCommand(program) {
         })
         .on("error", (e) => {
           // Handle http error with 'ora.fail()'
-          spinner.fail(chalk.bgRed("Error: " + e.message));
+          spinner.fail(
+            chalk.bold.bgRed("Error: ") + chalk.bgRed(e.message + "\n")
+          );
         });
     });
 };
