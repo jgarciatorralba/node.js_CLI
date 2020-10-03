@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
 // Bring in 'commander' dependency
-const { program } = require("commander");
+const {
+  program
+} = require("commander");
 
 // Add some basic info such as version and short description
 program.version("1.0.0").description("Command Line Interface for TMDb API");
@@ -33,9 +35,13 @@ program
     // Require dependency 'chalk'
     const chalk = require("chalk");
     // Start spinner
+    console.info(chalk.white("\n"));
     const spinner = ora(
       chalk.yellowBright("Fetching the popular person's data...\n")
-    ).start();
+    );
+    spinner.color = "yellowBright";
+    spinner.spinner = "triangle";
+    spinner.start();
     // Bring in the 'http' module
     const https = require("https");
     https
@@ -89,10 +95,10 @@ program
               if (noMoviesWithTitle) {
                 console.info(
                   "\n" +
-                    chalk.redBright(
-                      `${person.name} doesn't appear in any movie`
-                    ) +
-                    "\n"
+                  chalk.redBright(
+                    `${person.name} doesn't appear in any movie`
+                  ) +
+                  "\n"
                 );
               } else {
                 console.info(chalk.white("\nAppearing in movies:"));
