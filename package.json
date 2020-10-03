@@ -2,7 +2,7 @@
   "name": "nodejs_cli",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "moviedb.js",
   "preferGlobal": true,
   "bin": {
     "moviedb.js": "./moviedb.js"
