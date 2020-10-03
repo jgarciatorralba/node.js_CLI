@@ -1,3 +1,9 @@
+// Bring in dependencies: 'dotenv', 'ora', 'chalk' and 'http'
+require("dotenv/config");
+const ora = require("ora");
+const chalk = require("chalk");
+const https = require("https");
+
 // Export command as a function
 module.exports = function addGetPersonsCommand(program) {
   // Implement command 'get-persons'
@@ -14,18 +20,12 @@ module.exports = function addGetPersonsCommand(program) {
       // Get required page
       let page = command.page;
       // Bring in the API Key from '.env' file
-      require("dotenv/config");
       let apiKey = process.env.API_KEY;
       // Base URL
       let url = "https://api.themoviedb.org/3/person/";
       // let url = "https://api.themovied"; // Wrong url to force error
       if (command.popular) url += "popular?";
       url += "page=" + page + "&" + "api_key=" + apiKey;
-
-      // Require dependency 'ora'
-      const ora = require("ora");
-      // Require dependency 'chalk'
-      const chalk = require("chalk");
       // Start spinner
       console.info(chalk.white("\n"));
       const spinner = ora(
@@ -34,17 +34,14 @@ module.exports = function addGetPersonsCommand(program) {
       spinner.color = "yellowBright";
       spinner.spinner = "triangle";
       spinner.start();
-      // Bring in the 'http' module
-      const https = require("https");
+      // Make http request
       https
         .get(url, (resp) => {
           let data = "";
-
           // A chunk of data has been recieved.
           resp.on("data", (chunk) => {
             data += chunk;
           });
-
           // The whole response has been received. Print out the result.
           resp.on("end", () => {
             let parsedData = JSON.parse(data);
@@ -87,10 +84,10 @@ module.exports = function addGetPersonsCommand(program) {
                 if (noMoviesWithTitle) {
                   console.info(
                     "\n" +
-                      chalk.redBright(
-                        `${person.name} doesn't appear in any movie`
-                      ) +
-                      "\n"
+                    chalk.redBright(
+                      `${person.name} doesn't appear in any movie`
+                    ) +
+                    "\n"
                   );
                 } else {
                   console.info(chalk.white("\nAppearing in movies:"));
