@@ -6,7 +6,9 @@ const {
 } = require("commander");
 
 // Add some basic info such as version and short description
-program.version("1.0.0").description("Command Line Interface for TMDb API");
+program
+  .version("1.0.0")
+  .description("Command Line Interface for TMDb API");
 
 // Implement command 'get-persons'
 program
