@@ -12,6 +12,8 @@ program
 
 // Import commands
 require("./commands/get-persons")(program);
+require("./commands/get-person")(program);
+require("./commands/get-movies")(program);
 
 // Catch all arguments passed through the command line
 program.parse(process.argv);
