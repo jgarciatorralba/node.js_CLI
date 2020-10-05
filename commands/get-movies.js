@@ -29,18 +29,24 @@ module.exports = function addGetMoviesCommand(program) {
         })
         req.on('end', () => {
           const dataObj = JSON.parse(data)
-          dataObj.results.forEach(movie => {
-            console.log(chalk.white('Movie: \n'))
-            console.log(chalk.white('ID: ' + movie.id))
-            console.log(chalk.white('Title: ') + chalk.blue(movie.title))
-            console.log(chalk.white(`Relese Date: ${movie.release_date}
-          `))
-          })
-          if (dataObj.total_pages > dataObj.page) {
-            console.log(chalk.white('----------------------------------------'))
-            console.log(chalk.white('Page: ' + dataObj.page + " of: " + dataObj.total_pages + '\n'))
+          if (dataObj.errors !== undefined) {
+            dataObj.errors.forEach(error => {
+              spinner.warn(error + "\n");
+            })
+          } else {
+            dataObj.results.forEach(movie => {
+              console.log(chalk.white('Movie: \n'))
+              console.log(chalk.white('ID: ' + movie.id))
+              console.log(chalk.white('Title: ') + chalk.blue(movie.title))
+              console.log(chalk.white(`Relese Date: ${movie.release_date}
+            `))
+            })
+            if (dataObj.total_pages > dataObj.page) {
+              console.log(chalk.white('----------------------------------------'))
+              console.log(chalk.white('Page: ' + dataObj.page + " of: " + dataObj.total_pages + '\n'))
+            }
+            spinner.succeed(chalk.bgGreen.black(message))
           }
-          spinner.succeed(chalk.bgGreen.black(message))
         })
       }).end()
     })
