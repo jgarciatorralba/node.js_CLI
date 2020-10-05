@@ -1,9 +1,7 @@
-// Bring in dependencies: 'dotenv', 'ora', 'chalk' and 'http'
+// Bring in dependencies: 'dotenv', 'ora' and 'chalk'
 require("dotenv/config");
 const ora = require("ora");
 const chalk = require("chalk");
-const https = require("https");
-const save_local = require("./../functions/save-local");
 
 // Export command as a function
 module.exports = function addGetPersonsCommand(program) {
@@ -25,13 +23,6 @@ module.exports = function addGetPersonsCommand(program) {
       // Get '--save' and '--local' flag
       let saveFlag = program.save;
       let localFlag = program.local;
-
-      // Base URL
-      let url = "https://api.themoviedb.org/3/person/";
-      // Chain to url the search for popular persons
-      if (command.popular) url += "popular?";
-      // Chain to url the page number and the API key
-      url += "page=" + page + "&" + "api_key=" + apiKey;
       // Start spinner
       console.info(chalk.white("\n"));
       const spinner = ora(
@@ -40,9 +31,18 @@ module.exports = function addGetPersonsCommand(program) {
       spinner.color = "yellowBright";
       spinner.spinner = "triangle";
       spinner.start();
+      // Create 'options' object before using 'https.request'
+      const options = {
+        protocol: 'https:',
+        hostname: 'api.themoviedb.org',
+        port: 443,
+        path: '/3/person/popular?page=' + page + '&api_key=' + apiKey,
+        method: 'GET'
+      };
       // Make http request
-      https
-        .get(url, (resp) => {
+      const https = require("https");
+      const req = https
+        .request(options, (resp) => {
           let data = "";
           // A chunk of data has been recieved
           resp.on("data", (chunk) => {
@@ -57,65 +57,11 @@ module.exports = function addGetPersonsCommand(program) {
               })
             } else {
               if (saveFlag == true) {
-                save_local.saveFile(data, spinner, "persons");
+                const save = require("../utils/save");
+                save.saveFile(data, spinner, "persons");
               } else {
-                let currentPg = parsedData.page;
-                let totalPgs = parsedData.total_pages;
-                let persons = parsedData.results;
-                // Page number
-                if (totalPgs > currentPg) {
-                  console.info(
-                    chalk.white("\n----------------------------------------")
-                  );
-                  console.info(
-                    chalk.white("Page " + currentPg + " of " + totalPgs)
-                  );
-                }
-                // Persons data
-                persons.forEach((person) => {
-                  console.info(
-                    chalk.white("----------------------------------------\n")
-                  );
-                  console.info(chalk.white("Person:\n"));
-                  console.info(chalk.white("ID: " + person.id));
-                  console.info(`Name: ${chalk.blue.bold(person.name)}`);
-                  if (person.known_for_department === "Acting") {
-                    console.info(
-                      `Department: ${chalk.magenta(person.known_for_department)}`
-                    );
-                  }
-                  // Movies data
-                  let movies = person.known_for;
-                  let noMoviesWithTitle = true;
-                  movies.forEach((movie) => {
-                    if (movie.title !== undefined) {
-                      noMoviesWithTitle = false;
-                    }
-                  });
-                  if (noMoviesWithTitle) {
-                    console.info(
-                      "\n" +
-                      chalk.redBright(
-                        `${person.name} doesn't appear in any movie`
-                      ) +
-                      "\n"
-                    );
-                  } else {
-                    console.info(chalk.white("\nAppearing in movies:"));
-                    movies.forEach((movie) => {
-                      if (movie.title !== undefined) {
-                        console.info(chalk.white("\n\tMovie:"));
-                        console.info(chalk.white("\tID: " + movie.id));
-                        console.info(
-                          chalk.white("\tRelease date: " + movie.release_date)
-                        );
-                        console.info(
-                          chalk.white("\tTitle: " + movie.title + "\n")
-                        );
-                      }
-                    });
-                  }
-                });
+                const prints = require("../utils/prints");
+                prints.printGetPersons(parsedData);
                 // Ending spinner
                 console.info(chalk.white("\n"));
                 spinner.succeed(chalk.white("Popular Persons data loaded\n"));
@@ -129,5 +75,6 @@ module.exports = function addGetPersonsCommand(program) {
             chalk.bold.bgRed("Error: ") + chalk.bgRed(e.message + "\n")
           );
         });
+      req.end();
     });
 };
