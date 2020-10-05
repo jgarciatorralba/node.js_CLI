@@ -1,6 +1,6 @@
 const chalk = require("chalk");
 
-function printGetPersons(data) {
+function printGetPersons(spinner, data) {
   let currentPg = data.page;
   let totalPgs = data.total_pages;
   let persons = data.results;
@@ -58,6 +58,9 @@ function printGetPersons(data) {
       });
     }
   });
+  // Ending spinner
+  console.info(chalk.white("\n"));
+  spinner.succeed(chalk.white("Popular Persons data loaded\n"));
 }
 
 function printGetPerson(data) {
