@@ -5,66 +5,43 @@ const chalk = require('chalk');
 
 function saveFile(data, spinner, typeOfData, flagMovies = "popular") {
   let filesPath = path.resolve(process.cwd(), "files");
-  let personsPath = path.resolve(filesPath, "persons");
-  let moviesPath = filesPath + "movies";
+  let folder_path = "";
+  let file_path = "";
 
   if (typeOfData == "persons") {
-    const FILE_PATH = path.resolve(personsPath, "popular-persons.json");
-
-    if (!fs.existsSync(personsPath)) {
-      fs.mkdir(personsPath, {
-        recursive: true
-      }, () => {
-        fs.writeFile(FILE_PATH, data, (error) => {
-          if (error) {
-            spinner.fail(
-              chalk.bold.bgRed("Error: ") + chalk.bgRed(error + "\n")
-            );
-          }
-          spinner.succeed(chalk.white("The file has been saved!\n"));
-        });
-      });
-    } else {
-      fs.writeFile(FILE_PATH, data, (error) => {
-        if (error) {
-          spinner.fail(
-            chalk.bold.bgRed("Error: ") + chalk.bgRed(error + "\n")
-          );
-        }
-        spinner.succeed(chalk.white("The file has been saved!\n"));
-      });
-    }
-
+    folder_path = path.resolve(filesPath, "persons");
+    file_path = path.resolve(folder_path, "popular-persons.json");
   } else if (typeOfData == "movies") {
+    folder_path = path.resolve(filesPath, "movies");
     if (flagMovies == "popular") {
-      const FILE_PATH = path.resolve(moviesPath, "popular-movies.json");
+      file_path = path.resolve(folder_path, "popular-movies.json");
     } else if (flagMovies == "now-playing") {
-      const FILE_PATH = path.resolve(moviesPath, "now-playing-movies.json");
+      file_path = path.resolve(folder_path, "now-playing-movies.json");
     }
+  }
 
-    if (!fs.existsSync(moviesPath)) {
-      fs.mkdir(moviesPath, {
-        recursive: true
-      }, () => {
-        fs.writeFile(FILE_PATH, data, (error) => {
-          if (error) {
-            spinner.fail(
-              chalk.bold.bgRed("Error: ") + chalk.bgRed(error + "\n")
-            );
-          }
-          spinner.succeed(chalk.white("The file has been saved!\n"));
-        });
-      });
-    } else {
-      fs.writeFile(FILE_PATH, data, (error) => {
+  if (!fs.existsSync(folder_path)) {
+    fs.mkdir(folder_path, {
+      recursive: true
+    }, () => {
+      fs.writeFile(file_path, data, (error) => {
         if (error) {
           spinner.fail(
-            chalk.bold.bgRed("Error: ") + chalk.bgRed(error + "\n")
+            chalk.bold.bgRed("Error: ") + chalk.bgRed(error.message + "\n")
           );
         }
         spinner.succeed(chalk.white("The file has been saved!\n"));
       });
-    }
+    });
+  } else {
+    fs.writeFile(file_path, data, (error) => {
+      if (error) {
+        spinner.fail(
+          chalk.bold.bgRed("Error: ") + chalk.bgRed(error.message + "\n")
+        );
+      }
+      spinner.succeed(chalk.white("The file has been saved!\n"));
+    });
   }
 }
 
