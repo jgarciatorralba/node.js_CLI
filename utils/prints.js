@@ -63,16 +63,28 @@ function printGetPersons(spinner, data) {
   spinner.succeed(chalk.white("Popular Persons data loaded\n"));
 }
 
-function printGetPerson(data) {
+function printGetPerson(spinner, data) {
 
 }
 
-function printGetMovies(data) {
-
+function printGetMovies(spinner, data, message) {
+  data.results.forEach(movie => {
+    console.log(chalk.white('Movie: \n'))
+    console.log(chalk.white('ID: ' + movie.id))
+    console.log(chalk.white('Title: ') + chalk.blue(movie.title))
+    console.log(chalk.white(`Release Date: ${movie.release_date}
+  `))
+  })
+  if (data.total_pages > data.page) {
+    console.log(chalk.white('----------------------------------------'))
+    console.log(chalk.white('Page: ' + data.page + " of: " + data.total_pages + '\n'))
+  }
+  spinner.succeed(chalk.bgGreen.black(message))
 }
 
-function printGetMovie(data) {
+function printGetMovie(spinner, data) {
 
 }
 
 exports.printGetPersons = printGetPersons;
+exports.printGetMovies = printGetMovies;
