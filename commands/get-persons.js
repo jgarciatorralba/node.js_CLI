@@ -46,8 +46,10 @@ module.exports = function addGetPersonsCommand(program) {
           // The whole response has been received. Print out the result
           resp.on("end", () => {
             let parsedData = JSON.parse(data);
-            if (parsedData.success !== undefined && !parsedData.success) {
-              spinner.warn(parsedData.status_message);
+            if (parsedData.errors !== undefined) {
+              parsedData.errors.forEach(error => {
+                spinner.warn(error + "\n");
+              })
             } else {
               let currentPg = parsedData.page;
               let totalPgs = parsedData.total_pages;
