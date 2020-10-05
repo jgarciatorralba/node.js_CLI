@@ -64,7 +64,16 @@ function printGetPersons(spinner, data) {
 }
 
 function printGetPerson(spinner, data) {
-
+  console.log(chalk.white('\n----------------------------------------'))
+  console.log(chalk.white('Person: \n'))
+  console.log(chalk.white('ID: ' + data.id))
+  console.log(chalk.white('Name: ') + chalk.green(data.name))
+  console.log(chalk.white('Birthday: ' + data.birthday + ' | ' + data.place_of_birth))
+  console.log(chalk.white('Department: ') + chalk.redBright(data.known_for_department))
+  console.log(chalk.green('Biography: ' + data.biography))
+  console.log(chalk.white('Also known as: \n'))
+  console.log(chalk.white(data.also_known_as[0]))
+  spinner.succeed(chalk.bgGreen('Person data loaded!'))
 }
 
 function printGetMovies(spinner, data, message) {
@@ -88,3 +97,4 @@ function printGetMovie(spinner, data) {
 
 exports.printGetPersons = printGetPersons;
 exports.printGetMovies = printGetMovies;
+exports.printGetPerson = printGetPerson;
