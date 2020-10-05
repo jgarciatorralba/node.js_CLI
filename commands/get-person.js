@@ -21,7 +21,7 @@ module.exports = function addGetPersonCommand(program) {
           })
           resp.on('end', () => {
             const dataObj = JSON.parse(data)
-            if (dataObj.success == false) {
+            if (dataObj.success !== undefined) {
               spinner.warn(chalk.bgYellow(chalk.black(dataObj.status_message)))
             } else {
               console.log(chalk.white('\n----------------------------------------'))
