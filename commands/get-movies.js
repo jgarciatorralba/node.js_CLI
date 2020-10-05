@@ -6,6 +6,7 @@ const https = require("https");
 
 // Export command as a function
 module.exports = function addGetMoviesCommand(program) {
+  // Implement command 'get-movies'
   program
     .command('get-movies')
     .description('Make a network request to fetch movies')
