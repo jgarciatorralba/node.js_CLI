@@ -38,32 +38,40 @@ module.exports = function addGetMoviesCommand(program) {
         let options = new URL(url);
         const https = require("https");
         https.request(options, req => {
-          req.on('data', (res) => {
-            data += res
-          })
-          req.on('end', () => {
-            const dataObj = JSON.parse(data)
-            if (dataObj.errors !== undefined) {
-              dataObj.errors.forEach(error => {
-                spinner.warn(error + "\n");
-              })
-            } else {
-              if (saveFlag == true) {
-                // Save request to local folder
-                const save = require("../utils/save");
-                if (nowPlayingFlag) {
-                  save.saveFile(spinner, data, "movies", "now-playing");
-                } else {
-                  save.saveFile(spinner, data, "movies");
-                }
+            req.on('data', (res) => {
+              data += res
+            })
+            req.on('end', () => {
+              const dataObj = JSON.parse(data)
+              if (dataObj.errors !== undefined) {
+                dataObj.errors.forEach(error => {
+                  spinner.warn(error + "\n");
+                })
+              } else if (dataObj.success !== undefined) {
+                spinner.warn(dataObj.status_message);
               } else {
-                // Print request data
-                const prints = require("../utils/prints");
-                prints.printGetMovies(spinner, dataObj, message);
+                if (saveFlag == true) {
+                  // Save request to local folder
+                  const save = require("../utils/save");
+                  if (nowPlayingFlag) {
+                    save.saveFile(spinner, data, "movies", "now-playing");
+                  } else {
+                    save.saveFile(spinner, data, "movies");
+                  }
+                } else {
+                  // Print request data
+                  const prints = require("../utils/prints");
+                  prints.printGetMovies(spinner, dataObj, message);
+                }
               }
-            }
+            })
+          }).on("error", (e) => {
+            // Handle http error with 'ora.fail()'
+            spinner.fail(
+              chalk.bold.bgRed("Error: ") + chalk.bgRed(e.message + "\n")
+            );
           })
-        }).end()
+          .end()
       }
     })
 }
