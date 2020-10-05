@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
 
-function loadFile(spinner, typeOfData, flagMovies = "popular") {
+function loadFile(spinner, typeOfData, flagMovies = "popular", message = "") {
   let filesPath = path.resolve(process.cwd(), "files");
   let personsPath = path.resolve(filesPath, "persons");
   let moviesPath = path.resolve(filesPath, "movies");
@@ -30,7 +30,7 @@ function loadFile(spinner, typeOfData, flagMovies = "popular") {
       if (typeOfData == "persons") {
         prints.printGetPersons(spinner, parsedData);
       } else if (typeOfData == "movies") {
-        prints.printGetMovies(spinner, parsedData);
+        prints.printGetMovies(spinner, parsedData, message);
       }
     }
   })
