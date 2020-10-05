@@ -64,7 +64,7 @@ module.exports = function addGetPersonsCommand(program) {
                 if (saveFlag == true) {
                   // Save request to local folder
                   const save = require("../utils/save");
-                  save.saveFile(data, spinner, "persons");
+                  save.saveFile(spinner, data, "persons");
                 } else {
                   // Print request data
                   const prints = require("../utils/prints");
