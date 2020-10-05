@@ -27,7 +27,11 @@ function loadFile(spinner, typeOfData, flagMovies = "popular") {
     } else {
       let parsedData = JSON.parse(data)
       const prints = require("../utils/prints");
-      prints.printGetPersons(spinner, parsedData);
+      if (typeOfData == "persons") {
+        prints.printGetPersons(spinner, parsedData);
+      } else if (typeOfData == "movies") {
+        prints.printGetMovies(spinner, parsedData);
+      }
     }
   })
 }
