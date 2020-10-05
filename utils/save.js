@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
 
-function saveFile(data, spinner, typeOfData, flagMovies = "popular") {
+function saveFile(spinner, data, typeOfData, flagMovies = "popular") {
   let filesPath = path.resolve(process.cwd(), "files");
   let folder_path = "";
   let file_path = "";
