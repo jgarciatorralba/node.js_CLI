@@ -21,24 +21,18 @@ module.exports = function addGetPersonCommand(program) {
           })
           resp.on('end', () => {
             const dataObj = JSON.parse(data)
-            if (dataObj.success !== undefined) {
-              spinner.warn(chalk.bgYellow(chalk.black(dataObj.status_message)))
+            if (dataObj.errors !== undefined) {
+              dataObj.errors.forEach(error => {
+                spinner.warn(chalk.bgYellow(chalk.black(error)) + "\n");
+              })
             } else {
-              console.log(chalk.white('\n----------------------------------------'))
-              console.log(chalk.white('Person: \n'))
-              console.log(chalk.white('ID: ' + dataObj.id))
-              console.log(chalk.white('Name: ') + chalk.green(dataObj.name))
-              console.log(chalk.white('Birthday: ' + dataObj.birthday + ' | ' + dataObj.place_of_birth))
-              console.log(chalk.white('Department: ') + chalk.redBright(dataObj.known_for_department))
-              console.log(chalk.green('Biography: ' + dataObj.biography))
-              console.log(chalk.white('Also known as: \n'))
-              console.log(chalk.white(dataObj.also_known_as[0]))
-              spinner.succeed(chalk.bgGreen('Person data loaded !'))
+              const prints = require("../utils/prints");
+              prints.printGetPerson(spinner, dataObj);
             }
           })
         })
         .on("error", (e) => {
-          spinner.fail(chalk.bgRed(chalk.black('oh no somethings wrong, that is going on here ?')))
+          spinner.fail(chalk.bgRed(chalk.black('oh no something\'s wrong, what is going on here?')))
           console.log(chalk)
         })
     })
