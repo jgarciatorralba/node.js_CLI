@@ -4,9 +4,8 @@ const ora = require("ora");
 const chalk = require("chalk");
 
 // Export command as a function
-module.exports = function addGetMoviesCommand(program) {
+module.exports = function addGetMovieCommand(program) {
   // Implement command 'get-movie'
-
   program
     .command("get-movie")
     .description("Make a network request to fetch data of a single movie")
