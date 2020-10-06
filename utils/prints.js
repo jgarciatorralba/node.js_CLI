@@ -189,9 +189,10 @@ function printMovie(spinner, data) {
     );
   } else {
     data.spoken_languages.forEach((language) => {
-      console.log(chalk.white(language.name + "\n"));
+      console.log(chalk.white(language.name));
     });
   }
+  console.log(chalk.white("\n"));
   console.log(chalk.white("\n"));
   // Ending spinner
   spinner.succeed("Movie data loaded!\n");
