@@ -16,6 +16,7 @@ program
 require("./commands/get-persons")(program);
 require("./commands/get-person")(program);
 require("./commands/get-movies")(program);
+require("./commands/get-movie")(program);
 
 // Catch all arguments passed through the command line
 program.parse(process.argv);
