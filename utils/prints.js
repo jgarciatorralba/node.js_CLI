@@ -73,6 +73,7 @@ function printGetPerson(spinner, data) {
   console.log(chalk.green('Biography: ' + data.biography))
   console.log(chalk.white('Also known as: \n'))
   console.log(chalk.white(data.also_known_as[0]))
+  // Ending spinner
   spinner.succeed(chalk.bgGreen('Person data loaded!'))
 }
 
@@ -88,6 +89,7 @@ function printGetMovies(spinner, data, message) {
     console.log(chalk.white('----------------------------------------'))
     console.log(chalk.white('Page: ' + data.page + " of: " + data.total_pages + '\n'))
   }
+  // Ending spinner
   spinner.succeed(chalk.bgGreen.black(message))
 }
 
