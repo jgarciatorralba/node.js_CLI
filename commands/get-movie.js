@@ -12,22 +12,33 @@ module.exports = function addGetMovieCommand(program) {
     .requiredOption("-i, --id <id>", "The id of the movie")
     .option("-r, --reviews", "Fetch the reviews of the movie")
     .action((cli) => {
+      // Start spinner
+      console.log("\n");
+      const spinner = ora("Fetching the movie data...\n\n");
+      spinner.spinner = "moon";
+      spinner.start();
+      // Load or print movie reviews (flag '--review')
       if (cli.reviews) {
-        showReviews(cli);
+        if (program.local == true) {
+          require('../utils/local.js').loadFile(spinner, 'movie', 'reviews')
+        } else {
+          showReviews(cli, spinner);
+        }
       } else {
-        showMovie(cli);
+        // Load or print movie details
+        if (program.local == true) {
+          require('../utils/local.js').loadFile(spinner, 'movie')
+        } else {
+          showMovie(cli, spinner);
+        }
       }
-
-      function showReviews(cli) {
+      // Helper function to make request and print movie reviews
+      function showReviews(cli, spinner) {
         const url =
           "https://api.themoviedb.org/3/movie/" +
           cli.id +
           "/reviews?api_key=" +
           process.env.API_KEY;
-        const spinner = ora("Fetching the movie data...\n");
-        spinner.spinner = "moon";
-        spinner.color = "yellow";
-        spinner.start();
         const options = new URL(url);
 
         https
@@ -41,24 +52,32 @@ module.exports = function addGetMovieCommand(program) {
             });
             req.on("end", () => {
               const dataObj = JSON.parse(data);
-              // Print request data
-              const prints = require("../utils/prints");
-              prints.printReviews(spinner, dataObj);
+              if (dataObj.errors !== undefined) {
+                dataObj.errors.forEach(error => {
+                  spinner.warn(error + "\n");
+                })
+              } else if (dataObj.success !== undefined) {
+                spinner.warn(dataObj.status_message + "\n");
+              } else {
+                if (program.save) {
+                  require('../utils/save.js').saveFile(spinner, data, 'reviews')
+                } else {
+                  // Print request data
+                  const prints = require("../utils/prints");
+                  prints.printReviews(spinner, dataObj);
+                }
+              }
             });
           })
           .end();
       }
-
+      // Helper function to make request and print movie details
       function showMovie(cli) {
         const url =
           "https://api.themoviedb.org/3/movie/" +
           cli.id +
           "?api_key=" +
           process.env.API_KEY;
-        const spinner = ora("Fetching the movie data...\n");
-        spinner.spinner = "moon";
-        spinner.color = "yellow";
-        spinner.start();
         const options = new URL(url);
 
         https
@@ -72,12 +91,24 @@ module.exports = function addGetMovieCommand(program) {
             });
             req.on("end", () => {
               const dataObj = JSON.parse(data);
-              if (dataObj.success == false) {
-                spinner.warn(dataObj.status_message);
+              if (dataObj.errors !== undefined) {
+                dataObj.errors.forEach(error => {
+                  spinner.warn(error + "\n");
+                })
+              } else if (dataObj.success !== undefined) {
+                spinner.warn(dataObj.status_message + "\n");
               } else {
-                // Print request data
-                const prints = require("../utils/prints");
-                prints.printMovie(spinner, dataObj);
+                if (program.save) {
+                  require('../utils/save.js').saveFile(spinner, data, 'movie')
+                } else {
+                  if (dataObj.success == false) {
+                    spinner.warn(dataObj.status_message);
+                  } else {
+                    // Print request data
+                    const prints = require("../utils/prints");
+                    prints.printMovie(spinner, dataObj);
+                  }
+                }
               }
             });
           })

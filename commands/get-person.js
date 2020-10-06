@@ -11,8 +11,11 @@ module.exports = function addGetPersonCommand(program) {
     .description('Make a network request to fetch the data of a single person')
     .requiredOption('i, --id <num>', 'The id of the person', )
     .action((cli) => {
-      const spinner = ora(chalk.yellowBright('Fetching the person data...')).start()
-      const url = 'https://api.themoviedb.org/3/person/' + cli.id + '?api_key=' + process.env.API_KEY
+      // Request url
+      const url = 'https://api.themoviedb.org/3/person/' + cli.id + '?api_key=' + process.env.API_KEY;
+      // Start spinner
+      console.log(chalk.white("\n"));
+      const spinner = ora(chalk.yellowBright('Fetching the person data...\n')).start()
       // Get '--save' and '--local' flag values
       let saveFlag = program.save;
       let localFlag = program.local;
@@ -48,8 +51,10 @@ module.exports = function addGetPersonCommand(program) {
             })
           })
           .on("error", (e) => {
-            spinner.fail(chalk.bgRed(chalk.black('oh no something\'s wrong, what is going on here?')))
-            console.log(chalk)
+            // Handle http error with 'ora.fail()'
+            spinner.fail(
+              chalk.bold.bgRed("Error: ") + chalk.bgRed(e.message + "\n")
+            );
           }).end()
       }
     })
