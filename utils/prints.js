@@ -113,63 +113,79 @@ function printGetMovies(spinner, data, message) {
 function printReviews(spinner, data) {
   const results = data.results;
   if (results.length > 0) {
-    console.log("\n");
-    if (data.page > data.total_pages) {
+    if (data.page < data.total_pages) {
       console.log(
         chalk.white(
-          "\n--------------------------------------------"
+          "\n----------------------------------------"
         )
       );
       console.log(
         chalk.white(
-          "Page: " + data.page + " from: " + data.total_pages
+          "Page " + data.page + " of " + data.total_pages
         )
       );
     }
+    console.log(
+      chalk.white("----------------------------------------\n")
+    );
     results.forEach((review) => {
+      console.log(chalk.white('\nReview: \n'))
       console.log(
-        chalk.white("Author: ") + chalk.blueBright(review.author)
+        chalk.white("Author: ") + chalk.blue.bold(review.author)
       );
-      console.log(chalk.white("Content: " + review.content));
+      if (review.content.length > 400) {
+        let slicedContent = review.content.slice(0, 400);
+        console.log(chalk.white("Content: " + slicedContent + "...\n"));
+      } else {
+        console.log(chalk.white("Content: " + review.content));
+      }
     });
+  } else {
+    console.log(
+      chalk.yellow(`The movie ${data.id} doesn't have any reviews`)
+    );
   }
   // Ending spinner
-  console.log("\n");
-  spinner.succeed("Reviews");
+  console.log("\n\n");
+  spinner.succeed("Movie reviews data loaded\n");
 }
 
 function printMovie(spinner, data) {
   console.log(
-    "------------------------------------------------------------\n\n"
+    chalk.white(
+      "\n--------------------------------------------\n"
+    )
   );
+  console.log(chalk.white('Movie: \n'));
   console.log(chalk.white("ID: " + data.id));
-  console.log(chalk.white("Title :") + chalk.blue(data.title));
+  console.log(chalk.white("Title: ") + chalk.bold.blue(data.title));
   console.log(
-    chalk.white("Release Date :" + data.release_date)
+    chalk.white("Release Date: " + data.release_date)
   );
-  console.log(chalk.white("Runtime :" + data.runtime));
-  console.log(chalk.white("Vote Count :" + data.vote_count));
+  console.log(chalk.white("Runtime: " + data.runtime));
+  console.log(chalk.white("Vote Count: " + data.vote_count));
   console.log(
-    chalk.white("Overview :" + data.overview + "\n\n")
+    chalk.white("Overview: " + data.overview)
   );
-  console.log(chalk.white("Genres :\n"));
-  if (data.genres.length < 0) {
+  console.log("\n");
+  console.log(chalk.white("Genres: \n"));
+  if (data.genres.length == 0) {
     console.log(
-      chalk.yellow("The movie does not have a declared genre")
+      chalk.white("The movie ") +
+      chalk.yellow(data.title) +
+      chalk.white(" doesn't have a declared genre")
     );
   } else {
     data.genres.forEach((genre) => {
       console.log(chalk.white(genre.name));
     });
   }
-  console.log(chalk.white("\n"));
-  if (data.spoken_languages.length < 0) {
+
+  console.log("\n");
+  console.log(chalk.white("Spoken languages: \n"));
+  if (data.spoken_languages.length == 0) {
     console.log(
-      chalk.yellow(
-        "The movie " +
-        data.title +
-        " does not have a declared genre"
-      )
+      chalk.yellow("The movie " + data.title + " doesn't have any declared languages")
     );
   } else {
     data.spoken_languages.forEach((language) => {
@@ -178,7 +194,7 @@ function printMovie(spinner, data) {
   }
   console.log(chalk.white("\n"));
   // Ending spinner
-  spinner.succeed("Movie data loaded !");
+  spinner.succeed("Movie data loaded!\n");
 }
 
 exports.printGetPersons = printGetPersons;
