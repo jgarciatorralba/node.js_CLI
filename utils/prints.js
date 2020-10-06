@@ -67,14 +67,27 @@ function printGetPerson(spinner, data) {
   console.log(chalk.white('\n----------------------------------------'))
   console.log(chalk.white('Person: \n'))
   console.log(chalk.white('ID: ' + data.id))
-  console.log(chalk.white('Name: ') + chalk.green(data.name))
-  console.log(chalk.white('Birthday: ' + data.birthday + ' | ' + data.place_of_birth))
-  console.log(chalk.white('Department: ') + chalk.redBright(data.known_for_department))
-  console.log(chalk.green('Biography: ' + data.biography))
-  console.log(chalk.white('Also known as: \n'))
-  console.log(chalk.white(data.also_known_as[0]))
+  console.log(chalk.white('Name: ') + chalk.blue.bold(data.name))
+  console.log(chalk.white('Birthday: ' + data.birthday) + chalk.gray(' | ') + chalk.white(data.place_of_birth))
+  if (data.known_for_department === "Acting") {
+    console.log(
+      `Department: ${chalk.magenta(data.known_for_department)}`
+    );
+  }
+  console.log(chalk.white('Biography: ') + chalk.blue.bold(data.biography))
+  if (data.also_known_as.length > 0) {
+    console.log("\n");
+    console.log(chalk.white('Also known as:\n'));
+    data.also_known_as.forEach(element => {
+      console.log(chalk.white(element));
+    });
+  } else {
+    console.log("\n");
+    console.log(chalk.yellow(data.name) + chalk.white(" doesn't have any alternative names" + "\n"));
+  }
   // Ending spinner
-  spinner.succeed(chalk.bgGreen('Person data loaded!'))
+  console.log("\n");
+  spinner.succeed(chalk.bgGreen('Person data loaded!\n'))
 }
 
 function printGetMovies(spinner, data, message) {
