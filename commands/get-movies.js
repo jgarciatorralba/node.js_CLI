@@ -25,7 +25,13 @@ module.exports = function addGetMoviesCommand(program) {
         message = 'Movies playing now data loaded'
       }
       // Start spinner
-      const spinner = ora('Fetching the movies data...\n').start()
+      console.log(chalk.white("\n"));
+      const spinner = ora(
+        chalk.yellowBright("Fetching the movies data...\n")
+      );
+      spinner.color = "yellowBright";
+      spinner.spinner = "triangle";
+      spinner.start();
       if (localFlag == true) {
         // Try to load file from local folder (ignoring other command options)
         const local = require("../utils/local");
