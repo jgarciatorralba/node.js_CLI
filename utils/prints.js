@@ -91,19 +91,23 @@ function printGetPerson(spinner, data) {
 }
 
 function printGetMovies(spinner, data, message) {
+  if (data.total_pages > data.page) {
+    console.log(chalk.white('\n----------------------------------------'))
+    console.log(chalk.white('Page: ' + data.page + " of: " + data.total_pages))
+  }
   data.results.forEach(movie => {
+    console.log(
+      chalk.white("----------------------------------------\n")
+    );
     console.log(chalk.white('Movie: \n'))
     console.log(chalk.white('ID: ' + movie.id))
-    console.log(chalk.white('Title: ') + chalk.blue(movie.title))
-    console.log(chalk.white(`Release Date: ${movie.release_date}
-  `))
+    console.log(chalk.white('Title: ') + chalk.bold.blue(movie.title))
+    console.log(chalk.white(`Release Date: ${movie.release_date}` + "\n"))
+
   })
-  if (data.total_pages > data.page) {
-    console.log(chalk.white('----------------------------------------'))
-    console.log(chalk.white('Page: ' + data.page + " of: " + data.total_pages + '\n'))
-  }
   // Ending spinner
-  spinner.succeed(chalk.bgGreen.black(message))
+  console.log("\n");
+  spinner.succeed(chalk.bgGreen.black(message) + "\n");
 }
 
 function printReviews(spinner, data) {
