@@ -23,6 +23,10 @@ function saveFile(spinner, data, typeOfData, flagMovies = "popular") {
       file_path = path.resolve(folder_path, "now-playing-movies.json");
       message = 'The file "now-playing-movies.json" was stored successfully';
     }
+  } else if (typeOfData == "person") {
+    folder_path = path.resolve(filesPath, "persons");
+    file_path = path.resolve(folder_path, "person-by-id.json");
+    message = 'The file "person-by-id.json" was stored successfully';
   }
 
   if (!fs.existsSync(folder_path)) {

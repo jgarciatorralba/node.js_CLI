@@ -17,6 +17,8 @@ function loadFile(spinner, typeOfData, flagMovies = "popular", message = "") {
     } else if (flagMovies == "now-playing") {
       file_path = path.resolve(moviesPath, "now-playing-movies.json");
     }
+  } else if (typeOfData == "person") {
+    file_path = path.resolve(personsPath, "person-by-id.json");
   }
 
   fs.readFile(file_path, (error, data) => {
@@ -31,6 +33,8 @@ function loadFile(spinner, typeOfData, flagMovies = "popular", message = "") {
         prints.printGetPersons(spinner, parsedData);
       } else if (typeOfData == "movies") {
         prints.printGetMovies(spinner, parsedData, message);
+      } else if (typeOfData == "person") {
+        prints.printGetPerson(spinner, parsedData);
       }
     }
   })
