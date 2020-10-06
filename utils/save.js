@@ -27,6 +27,14 @@ function saveFile(spinner, data, typeOfData, flagMovies = "popular") {
     folder_path = path.resolve(filesPath, "persons");
     file_path = path.resolve(folder_path, "person-by-id.json");
     message = 'The file "person-by-id.json" was stored successfully';
+  } else if (typeOfData == "movie") {
+    folder_path = path.resolve(filesPath, "movies");
+    file_path = path.resolve(folder_path, "movie-by-id.json");
+    message = 'The file "movie-by-id.json" was stored successfully';
+  } else if (typeOfData == "reviews") {
+    folder_path = path.resolve(filesPath, "movies");
+    file_path = path.resolve(folder_path, "reviews-by-id.json");
+    message = 'The file "reviews-by-id.json" was stored successfully';
   }
 
   if (!fs.existsSync(folder_path)) {
