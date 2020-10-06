@@ -19,15 +19,15 @@ module.exports = function addGetMovieCommand(program) {
       spinner.start();
 
       if (cli.reviews) {
-          if(program.local == true){
-            require('../utils/local.js').loadFile(spinner, 'movie', 'reviews')
-        }else{
+        if (program.local == true) {
+          require('../utils/local.js').loadFile(spinner, 'movie', 'reviews')
+        } else {
           showReviews(cli, spinner);
         }
       } else {
-          if(program.local == true){
-            require('../utils/local.js').loadFile(spinner, 'movie') 
-        }else{
+        if (program.local == true) {
+          require('../utils/local.js').loadFile(spinner, 'movie')
+        } else {
           showMovie(cli, spinner);
         }
       }
@@ -50,13 +50,14 @@ module.exports = function addGetMovieCommand(program) {
               spinner.fail(err);
             });
             req.on("end", () => {
-              if(program.save){
+              if (program.save) {
                 require('../utils/save.js').saveFile(spinner, data, 'reviews')
+              } else {
+                const dataObj = JSON.parse(data);
+                // Print request data
+                const prints = require("../utils/prints");
+                prints.printReviews(spinner, dataObj);
               }
-              const dataObj = JSON.parse(data);
-              // Print request data
-              const prints = require("../utils/prints");
-              prints.printReviews(spinner, dataObj);
             });
           })
           .end();
@@ -80,16 +81,17 @@ module.exports = function addGetMovieCommand(program) {
               spinner.fail(err);
             });
             req.on("end", () => {
-              if(program.save){
+              if (program.save) {
                 require('../utils/save.js').saveFile(spinner, data, 'movie')
-              }
-              const dataObj = JSON.parse(data);
-              if (dataObj.success == false) {
-                spinner.warn(dataObj.status_message);
               } else {
-                // Print request data
-                const prints = require("../utils/prints");
-                prints.printMovie(spinner, dataObj);
+                const dataObj = JSON.parse(data);
+                if (dataObj.success == false) {
+                  spinner.warn(dataObj.status_message);
+                } else {
+                  // Print request data
+                  const prints = require("../utils/prints");
+                  prints.printMovie(spinner, dataObj);
+                }
               }
             });
           })
