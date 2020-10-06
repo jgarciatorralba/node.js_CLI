@@ -93,10 +93,79 @@ function printGetMovies(spinner, data, message) {
   spinner.succeed(chalk.bgGreen.black(message))
 }
 
-function printGetMovie(spinner, data) {
+function printReviews(spinner, data) {
+  const results = data.results;
+  if (results.length > 0) {
+    console.log("\n");
+    if (data.page > data.total_pages) {
+      console.log(
+        chalk.white(
+          "\n--------------------------------------------"
+        )
+      );
+      console.log(
+        chalk.white(
+          "Page: " + data.page + " from: " + data.total_pages
+        )
+      );
+    }
+    results.forEach((review) => {
+      console.log(
+        chalk.white("Author: ") + chalk.blueBright(review.author)
+      );
+      console.log(chalk.white("Content: " + review.content));
+    });
+  }
+  // Ending spinner
+  console.log("\n");
+  spinner.succeed("Reviews");
+}
 
+function printMovie(spinner, data) {
+  console.log(
+    "------------------------------------------------------------\n\n"
+  );
+  console.log(chalk.white("ID: " + data.id));
+  console.log(chalk.white("Title :") + chalk.blue(data.title));
+  console.log(
+    chalk.white("Release Date :" + data.release_date)
+  );
+  console.log(chalk.white("Runtime :" + data.runtime));
+  console.log(chalk.white("Vote Count :" + data.vote_count));
+  console.log(
+    chalk.white("Overview :" + data.overview + "\n\n")
+  );
+  console.log(chalk.white("Genres :\n"));
+  if (data.genres.length < 0) {
+    console.log(
+      chalk.yellow("The movie does not have a declared genre")
+    );
+  } else {
+    data.genres.forEach((genre) => {
+      console.log(chalk.white(genre.name));
+    });
+  }
+  console.log(chalk.white("\n"));
+  if (data.spoken_languages.length < 0) {
+    console.log(
+      chalk.yellow(
+        "The movie " +
+        data.title +
+        " does not have a declared genre"
+      )
+    );
+  } else {
+    data.spoken_languages.forEach((language) => {
+      console.log(chalk.white(language.name));
+    });
+  }
+  console.log(chalk.white("\n"));
+  // Ending spinner
+  spinner.succeed("Movie data loaded !");
 }
 
 exports.printGetPersons = printGetPersons;
 exports.printGetMovies = printGetMovies;
 exports.printGetPerson = printGetPerson;
+exports.printReviews = printReviews;
+exports.printMovie = printMovie;
