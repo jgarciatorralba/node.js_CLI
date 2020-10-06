@@ -4,7 +4,7 @@ _node.js, JS, CLI, third-party API, Backend_
 
 ## 📔 Description
 
-In this project, we developed a CLI program using **node.js** which runs in a terminal application. The program connects to a third-party API to display the returned data, and is able to store it in and load it from the local system.
+In this project, we developed a CLI program using **node.js** which runs in a terminal application. The program connects to a third-party API to display the returned data, and is able to store it in and to load it from the local system.
 
 ### 📂 Content
 
