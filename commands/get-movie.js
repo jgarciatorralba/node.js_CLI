@@ -12,12 +12,12 @@ module.exports = function addGetMovieCommand(program) {
     .requiredOption("-i, --id <id>", "The id of the movie")
     .option("-r, --reviews", "Fetch the reviews of the movie")
     .action((cli) => {
-
-      const spinner = ora("Fetching the movie data...\n");
+      // Start spinner
+      console.log("\n");
+      const spinner = ora("Fetching the movie data...\n\n");
       spinner.spinner = "moon";
-      spinner.color = "yellow";
       spinner.start();
-
+      // Load or print movie reviews (flag '--review')
       if (cli.reviews) {
         if (program.local == true) {
           require('../utils/local.js').loadFile(spinner, 'movie', 'reviews')
@@ -25,13 +25,14 @@ module.exports = function addGetMovieCommand(program) {
           showReviews(cli, spinner);
         }
       } else {
+        // Load or print movie details
         if (program.local == true) {
           require('../utils/local.js').loadFile(spinner, 'movie')
         } else {
           showMovie(cli, spinner);
         }
       }
-
+      // Helper function to make request and print movie reviews
       function showReviews(cli, spinner) {
         const url =
           "https://api.themoviedb.org/3/movie/" +
@@ -62,7 +63,7 @@ module.exports = function addGetMovieCommand(program) {
           })
           .end();
       }
-
+      // Helper function to make request and print movie details
       function showMovie(cli) {
         const url =
           "https://api.themoviedb.org/3/movie/" +
