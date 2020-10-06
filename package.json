@@ -2,7 +2,11 @@
   "name": "nodejs_cli",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "moviedb.js",
+  "preferGlobal": true,
+  "bin": {
+    "moviedb.js": "./moviedb.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +21,9 @@
     "dotenv": "^8.2.0"
   },
   "dependencies": {
-    "commander": "^6.1.0"
+    "chalk": "^4.1.0",
+    "commander": "^6.1.0",
+    "node-notifier": "^8.0.0",
+    "ora": "^5.1.0"
   }
 }

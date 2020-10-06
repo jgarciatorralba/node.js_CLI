@@ -1,22 +1,23 @@
+#!/usr/bin/env node
+
 // Bring in 'commander' dependency
-const {
-  program
-} = require('commander');
+const { program } = require("commander");
 
 // Add some basic info such as version and short description
 program
-  .version('1.0.0')
-  .description('Command Line Interface for TMDb API');
+  .version("1.0.0")
+  .description("Command Line Interface for TMDb API")
+  .option("--save", "Store the contents in a json file inside a files folder")
+  .option(
+    "--local",
+    "Read the data of the persons or the movies from the local file system instead of making a network request"
+  );
 
-// Some other commands
-program
-  .command('inspiration')
-  .description('gives you a inspirational phrase')
-  .alias('ins')
-  .action(function(word='default'){
-    if(word=='defaullt')console.log('you are configurable, want to program ?')
-    else console.log('words have a value, how deep can you see it ?')
-  })
+// Import commands
+require("./commands/get-persons")(program);
+require("./commands/get-person")(program);
+require("./commands/get-movies")(program);
+require("./commands/get-movie")(program);
 
-// Test that CLI actually works
+// Catch all arguments passed through the command line
 program.parse(process.argv);
