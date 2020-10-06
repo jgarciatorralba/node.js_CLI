@@ -6,23 +6,23 @@ function printGetPersons(spinner, data) {
   let persons = data.results;
   // Page number
   if (totalPgs > currentPg) {
-    console.info(
+    console.log(
       chalk.white("\n----------------------------------------")
     );
-    console.info(
+    console.log(
       chalk.white("Page " + currentPg + " of " + totalPgs)
     );
   }
   // Persons data
   persons.forEach((person) => {
-    console.info(
+    console.log(
       chalk.white("----------------------------------------\n")
     );
-    console.info(chalk.white("Person:\n"));
-    console.info(chalk.white("ID: " + person.id));
-    console.info(`Name: ${chalk.blue.bold(person.name)}`);
+    console.log(chalk.white("Person:\n"));
+    console.log(chalk.white("ID: " + person.id));
+    console.log(`Name: ${chalk.blue.bold(person.name)}`);
     if (person.known_for_department === "Acting") {
-      console.info(
+      console.log(
         `Department: ${chalk.magenta(person.known_for_department)}`
       );
     }
@@ -35,7 +35,7 @@ function printGetPersons(spinner, data) {
       }
     });
     if (noMoviesWithTitle) {
-      console.info(
+      console.log(
         "\n" +
         chalk.redBright(
           `${person.name} doesn't appear in any movie`
@@ -43,15 +43,15 @@ function printGetPersons(spinner, data) {
         "\n"
       );
     } else {
-      console.info(chalk.white("\nAppearing in movies:"));
+      console.log(chalk.white("\nAppearing in movies:"));
       movies.forEach((movie) => {
         if (movie.title !== undefined) {
-          console.info(chalk.white("\n\tMovie:"));
-          console.info(chalk.white("\tID: " + movie.id));
-          console.info(
+          console.log(chalk.white("\n\tMovie:"));
+          console.log(chalk.white("\tID: " + movie.id));
+          console.log(
             chalk.white("\tRelease date: " + movie.release_date)
           );
-          console.info(
+          console.log(
             chalk.white("\tTitle: " + movie.title + "\n")
           );
         }
@@ -59,7 +59,7 @@ function printGetPersons(spinner, data) {
     }
   });
   // Ending spinner
-  console.info(chalk.white("\n"));
+  console.log(chalk.white("\n"));
   spinner.succeed(chalk.white("Popular Persons data loaded\n"));
 }
 

@@ -24,7 +24,7 @@ module.exports = function addGetPersonsCommand(program) {
       let saveFlag = program.save;
       let localFlag = program.local;
       // Start spinner
-      console.info(chalk.white("\n"));
+      console.log(chalk.white("\n"));
       const spinner = ora(
         chalk.yellowBright("Fetching the popular person's data...\n")
       );
