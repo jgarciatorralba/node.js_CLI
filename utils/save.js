@@ -27,8 +27,7 @@ function saveFile(spinner, data, typeOfData, flagMovies = "popular") {
 
   if (!fs.existsSync(folder_path)) {
     fs.mkdir(
-      folder_path,
-      {
+      folder_path, {
         recursive: true,
       },
       () => {
@@ -39,6 +38,13 @@ function saveFile(spinner, data, typeOfData, flagMovies = "popular") {
             );
           }
           spinner.succeed(chalk.white("The file has been saved!\n"));
+          // Added OS notification thanks to dependency 'node-notifier'
+          notifier.notify({
+            title: "Notification",
+            message: message,
+            sound: true,
+            timeout: false,
+          });
         });
       }
     );
