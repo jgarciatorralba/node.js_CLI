@@ -14,7 +14,7 @@ module.exports = function addGetPersonCommand(program) {
       const spinner = ora(chalk.yellowBright('Fetching the person data...')).start()
       const url = 'https://api.themoviedb.org/3/person/' + cli.id + '?api_key=' + process.env.API_KEY
       https
-        .get(url, (resp) => {
+        .request(url, (resp) => {
           let data = ""
           resp.on('data', (d) => {
             data += d
@@ -34,6 +34,6 @@ module.exports = function addGetPersonCommand(program) {
         .on("error", (e) => {
           spinner.fail(chalk.bgRed(chalk.black('oh no something\'s wrong, what is going on here?')))
           console.log(chalk)
-        })
+        }).end()
     })
 }
