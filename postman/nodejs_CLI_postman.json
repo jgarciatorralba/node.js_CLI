@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "4a7e025e-4bb2-4799-a4d2-28ad9f636d3d",
+		"name": "node.js CLI",
+		"description": "Different requests to The Movie database (https://www.themoviedb.org/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get-persons",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.themoviedb.org/3/person/popular?page=1&api_key=97cfcf56efda1a3bf1923b8793630b7b",
+					"protocol": "https",
+					"host": [
+						"api",
+						"themoviedb",
+						"org"
+					],
+					"path": [
+						"3",
+						"person",
+						"popular"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "api_key",
+							"value": "97cfcf56efda1a3bf1923b8793630b7b"
+						}
+					]
+				},
+				"description": "URL: https://api.themoviedb.org/3/person/popular?page=1"
+			},
+			"response": []
+		},
+		{
+			"name": "get-person",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.themoviedb.org/3/person/6189?api_key=97cfcf56efda1a3bf1923b8793630b7b",
+					"protocol": "https",
+					"host": [
+						"api",
+						"themoviedb",
+						"org"
+					],
+					"path": [
+						"3",
+						"person",
+						"6189"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "97cfcf56efda1a3bf1923b8793630b7b"
+						}
+					]
+				},
+				"description": "https://api.themoviedb.org/3/person/"
+			},
+			"response": []
+		},
+		{
+			"name": "get-movies --popular",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.themoviedb.org/3/movie/popular?page=2&api_key=97cfcf56efda1a3bf1923b8793630b7b",
+					"protocol": "https",
+					"host": [
+						"api",
+						"themoviedb",
+						"org"
+					],
+					"path": [
+						"3",
+						"movie",
+						"popular"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "api_key",
+							"value": "97cfcf56efda1a3bf1923b8793630b7b"
+						}
+					]
+				},
+				"description": "https://api.themoviedb.org/3/movie/popular?page="
+			},
+			"response": []
+		},
+		{
+			"name": "get-movies --now-playing",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.themoviedb.org/3/movie/now_playing?page=2&api_key=97cfcf56efda1a3bf1923b8793630b7b",
+					"protocol": "https",
+					"host": [
+						"api",
+						"themoviedb",
+						"org"
+					],
+					"path": [
+						"3",
+						"movie",
+						"now_playing"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "api_key",
+							"value": "97cfcf56efda1a3bf1923b8793630b7b"
+						}
+					]
+				},
+				"description": "https://api.themoviedb.org/3/movie/now_playing?page="
+			},
+			"response": []
+		},
+		{
+			"name": "get-movie",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.themoviedb.org/3/movie/3?api_key=97cfcf56efda1a3bf1923b8793630b7b",
+					"protocol": "https",
+					"host": [
+						"api",
+						"themoviedb",
+						"org"
+					],
+					"path": [
+						"3",
+						"movie",
+						"3"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "97cfcf56efda1a3bf1923b8793630b7b"
+						}
+					]
+				},
+				"description": "https://api.themoviedb.org/3/movie/694919"
+			},
+			"response": []
+		},
+		{
+			"name": "get-movie --reviews",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.themoviedb.org/3/movie/33/reviews?api_key=97cfcf56efda1a3bf1923b8793630b7b",
+					"protocol": "https",
+					"host": [
+						"api",
+						"themoviedb",
+						"org"
+					],
+					"path": [
+						"3",
+						"movie",
+						"33",
+						"reviews"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "97cfcf56efda1a3bf1923b8793630b7b"
+						}
+					]
+				},
+				"description": "https://api.themoviedb.org/3/movie/694919/reviews"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
