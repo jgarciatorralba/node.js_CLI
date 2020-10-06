@@ -19,6 +19,12 @@ function loadFile(spinner, typeOfData, flagMovies = "popular", message = "") {
     }
   } else if (typeOfData == "person") {
     file_path = path.resolve(personsPath, "person-by-id.json");
+  } else if (typeOfData == "movie") {
+    if(flagMovies == 'reviews'){
+      file_path = path.resolve(moviesPath, "reviews-by-id.json");
+    }else{
+      file_path = path.resolve(moviesPath, "movie-by-id.json");
+    }
   }
 
   fs.readFile(file_path, (error, data) => {
@@ -35,6 +41,12 @@ function loadFile(spinner, typeOfData, flagMovies = "popular", message = "") {
         prints.printGetMovies(spinner, parsedData, message);
       } else if (typeOfData == "person") {
         prints.printGetPerson(spinner, parsedData);
+      } else if (typeOfData == "movie") {
+        if (flagMovies == "reviews") {
+          prints.printReviews(spinner, parsedData);
+        }else{
+          prints.printMovie(spinner, parsedData);
+        }
       }
     }
   })
