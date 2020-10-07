@@ -1,5 +1,4 @@
-// Bring in dependencies: 'dotenv', 'ora' and 'chalk'
-require("dotenv/config");
+// Bring in dependencies: 'ora' and 'chalk'
 const ora = require("ora");
 const chalk = require("chalk");
 

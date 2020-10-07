@@ -1,5 +1,4 @@
-// Bring in dependencies: 'dotenv', 'ora', and 'https'
-require("dotenv/config");
+// Bring in dependencies: 'ora', and 'https'
 const ora = require("ora");
 const https = require("https");
 

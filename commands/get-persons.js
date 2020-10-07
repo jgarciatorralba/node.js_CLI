@@ -1,5 +1,4 @@
-// Bring in dependencies: 'dotenv', 'ora' and 'chalk'
-require("dotenv/config");
+// Bring in dependencies: 'ora' and 'chalk'
 const ora = require("ora");
 const chalk = require("chalk");
 
@@ -19,6 +18,7 @@ module.exports = function addGetPersonsCommand(program) {
       // Get required page
       let page = command.page;
       // Bring in the API Key from '.env' file
+      // let apiKey = process.env.API_KEY;
       let apiKey = process.env.API_KEY;
       // Get '--save' and '--local' flag values
       let saveFlag = program.save;
