@@ -60,6 +60,8 @@ module.exports = function addGetPersonsCommand(program) {
                 parsedData.errors.forEach(error => {
                   spinner.warn(error + "\n");
                 })
+              } else if (parsedData.success !== undefined) {
+                spinner.warn(parsedData.status_message + "\n");
               } else {
                 if (saveFlag == true) {
                   // Save request to local folder

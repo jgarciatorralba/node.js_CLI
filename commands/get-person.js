@@ -37,6 +37,8 @@ module.exports = function addGetPersonCommand(program) {
                 dataObj.errors.forEach(error => {
                   spinner.warn(chalk.bgYellow(chalk.black(error)) + "\n");
                 })
+              } else if (dataObj.success !== undefined) {
+                spinner.warn(dataObj.status_message + "\n");
               } else {
                 if (saveFlag == true) {
                   // Save request to local folder
