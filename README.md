@@ -1,6 +1,6 @@
 # node.js Command Line Interface
 
-_node.js, JS, CLI, third-party API, Backend_
+_node.js, JS, CLI, third-party API_
 
 ## 📔 Description
 
