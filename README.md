@@ -20,15 +20,17 @@ The repository contains the files and folders detailed below:
   - **_prints.js_**: which contains different functions to display the required data on the command line.
   - **_save.js_**: with a function to store the data required via _https_ request in a local folder.
 
+- **_.env-template_**: a file with the individual user environment variables needed to run this application. Basically only an **API key** is needed, which can be obtained for free by registering in [TMDb](https://www.themoviedb.org).
+
 - **_.gitignore_**: used to indicate the files and folders to be ignored by the version control system _Git_.
+
+- **_README.md_**: this file.
 
 - **_moviedb.js_**: main entry point to the program, with calls (via `require`) to the _npm_ package **_commander_** to generate our command line interface application and to the different implemented commands.
 
 - **_package-lock.json_**: automatically generated file used for any operations where the package manager _npm_ modifies either the _node_modules_ tree (not included in this repository) or the file _package.json_.
 
 - **_package.json_**: contains information about the project (name, version, etc.) including the packages installed as dependencies.
-
-- **_README.md_**: this file.
 
 ---
 
