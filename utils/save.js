@@ -5,7 +5,7 @@ const chalk = require("chalk");
 const notifier = require("node-notifier");
 
 function saveFile(spinner, data, typeOfData, flagMovies = "popular") {
-  let filesPath = path.resolve(process.cwd(), "files");
+  let filesPath = path.resolve(__dirname, '../files');
   let folder_path = "";
   let file_path = "";
   let message = "";

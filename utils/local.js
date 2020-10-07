@@ -4,7 +4,7 @@ const path = require('path');
 const chalk = require('chalk');
 
 function loadFile(spinner, typeOfData, flagMovies = "popular", message = "") {
-  let filesPath = path.resolve(process.cwd(), "files");
+  let filesPath = path.resolve(__dirname, '../files');
   let personsPath = path.resolve(filesPath, "persons");
   let moviesPath = path.resolve(filesPath, "movies");
 
@@ -20,9 +20,9 @@ function loadFile(spinner, typeOfData, flagMovies = "popular", message = "") {
   } else if (typeOfData == "person") {
     file_path = path.resolve(personsPath, "person-by-id.json");
   } else if (typeOfData == "movie") {
-    if(flagMovies == 'reviews'){
+    if (flagMovies == 'reviews') {
       file_path = path.resolve(moviesPath, "reviews-by-id.json");
-    }else{
+    } else {
       file_path = path.resolve(moviesPath, "movie-by-id.json");
     }
   }
@@ -44,7 +44,7 @@ function loadFile(spinner, typeOfData, flagMovies = "popular", message = "") {
       } else if (typeOfData == "movie") {
         if (flagMovies == "reviews") {
           prints.printReviews(spinner, parsedData);
-        }else{
+        } else {
           prints.printMovie(spinner, parsedData);
         }
       }
