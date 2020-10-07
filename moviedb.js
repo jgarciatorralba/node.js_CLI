@@ -1,7 +1,15 @@
 #!/usr/bin/env node
 
+// Bring in dependencies 'path' and 'dotenv'
+const path = require('path');
+require('dotenv').config({
+  path: path.resolve(__dirname, '.env')
+});
+
 // Bring in 'commander' dependency
-const { program } = require("commander");
+const {
+  program
+} = require("commander");
 
 // Add some basic info such as version and short description
 program
